@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>飞机大战</title>
+        <style media="screen">
+            canvas {
+                border: 1px black solid;
+            }
+        </style>
+        <!-- X game 相关文件 -->
+        <script src='xgame/utils.js'></script>
+        <script src='xgame/mouse.js'></script>
+        <script src='xgame/x_game.js'></script>
+        <script src='xgame/x_scene.js'></script>
+        <script src='xgame/x_image.js'></script>
+        <script src='xgame/x_particle_system.js'></script>
+        <!-- 场景文件 -->
+        <script src='scene/main/bullet.js'></script>
+        <script src='scene/main/enemy.js'></script>
+        <script src='scene/main/cloud.js'></script>
+        <script src='scene/main/player.js'></script>
+        <script src='scene/main/scene.js'></script>
+        <!-- 结束和标题场景 -->
+        <script src='scene/end/scene_end.js'></script>
+        <script src='scene/title/scene_title.js'></script>
+    </head>
+    <body>
+        <canvas id="id-canvas" width="350" height="500"></canvas>
+        <hr>
+        <div class="">
+            <label>
+                <input class="x-auto-slider" type="range"
+                       value=""
+                       data-value="config.player_speed"
+                >
+                玩家速度：<span class="x-label"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="x-auto-slider" type="range"
+                       value=""
+                       data-value="config.bullet_speed"
+                >
+                bullet 速度：<span class="x-label"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="x-auto-slider" type="range"
+                       value=""
+                       max="10"
+                       data-value="config.fire_cooldown"
+                >
+               子弹冷却时间 ：<span class="x-label"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="x-auto-slider" type="range"
+                       value=""
+                       min='-10'
+                       max="10"
+                       data-value="config.cloud_speed"
+                >
+                cloud speed ：<span class="x-label"></span>
+            </label>
+        </div>
+        <script src=main.js></script>
+        <script>
+            var es = sel => document.querySelectorAll(sel)
+            var bindAll = function (sel, eventName, callback) {
+                var l = es(sel)
+                for (var i = 0; i < l.length; i++) {
+                    var input = l[i]
+                    input.addEventListener(eventName, function (event) {
+                        callback(event)
+                    })
+                }
+            }
+
+            bindAll('.x-auto-slider', 'input', function (event) {
+                var target = event.target
+                var bindVar = target.dataset.value
+                var v = target.value
+                eval(bindVar + '=' + v)
+                //
+                var label = target.closest('label').querySelector('.x-label')
+                label.innerText = v
+            })
+        </script>
+    </body>
+</html>
